@@ -1,0 +1,9 @@
+[submodule "twoWayActionsBus"]
+	path = twoWayActionsBus
+	url = https://github.com/Ir-rev/twoWayActionsBus
+[submodule "foodMaker"]
+	path = foodMaker
+	url = https://github.com/Ir-rev/foodMaker
+[submodule "recyclerViewMerge"]
+	path = recyclerViewMerge
+	url = https://github.com/Ir-rev/recyclerViewMerge

@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "PizzaApp"
 include ':app'
+include ':twoWayActionsBus'
+include ':foodMaker'
+include ':recyclerViewMerge'
