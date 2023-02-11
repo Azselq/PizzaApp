@@ -107,4 +107,6 @@ class ScrollListener(
 
     private fun LinearLayoutManager.isNeedLoadNextPage(): Boolean =
         findLastVisibleItemPosition() >= itemCount - 1 - pageSize / 2
+
+
 }

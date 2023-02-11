@@ -9,5 +9,18 @@
         android:id="@+id/mainFragment"
         android:name="com.example.pizzaapp.mainFragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_descFragment"
+            app:destination="@id/descFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/descFragment"
+        android:name="com.example.pizzaapp.descFragment.DescFragment"
+        android:label="fragment_desc"
+        tools:layout="@layout/fragment_desc" >
+        <argument
+            android:name="dishes"
+            app:argType="com.example.pizzaapp.mainFragment.BaseDishes"/>
+    </fragment>
 </navigation>

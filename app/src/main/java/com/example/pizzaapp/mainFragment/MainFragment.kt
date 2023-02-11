@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import com.example.pizzaapp.R
 import com.example.pizzaapp.databinding.FragmentMainBinding
 import com.example.pizzaapp.utils.ScrollListener
@@ -56,7 +57,7 @@ class MainFragment : Fragment() {
         }
         viewModel.action.handler = { event ->
             when (event) {
-
+                is OpenDescFragment -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToDescFragment(event.baseDishes))
                 else -> {
                     /* должно быть пусто*/
                 }

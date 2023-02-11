@@ -7,9 +7,11 @@
             name="viewModel"
             type="com.example.pizzaapp.mainFragment.Pizza"/>
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        app:onClick="@{viewModel.onClick}"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
 
         <ImageView
@@ -24,41 +26,41 @@
 
         <TextView
             android:id="@+id/tvPizzaName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="203dp"
-            android:text="@{viewModel.costPizza}"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.titleText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imagePizza"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="я белый кот"/>
+            tools:text="я белый кот" />
 
         <TextView
             android:id="@+id/tvPizzaDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="205dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
             android:text="@{viewModel.descPizza}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/imagePizza"
-            app:layout_constraintTop_toBottomOf="@+id/tvPizzaName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPizzaName"
+            tools:text="я белый кот" />
 
         <TextView
             android:id="@+id/tvPizzaCost"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="203dp"
-            android:text="@{viewModel.titleText}"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{viewModel.costPizza}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imagePizza"
-            app:layout_constraintTop_toBottomOf="@+id/tvPizzaDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPizzaDescription"
+            tools:text="я белый кот" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
