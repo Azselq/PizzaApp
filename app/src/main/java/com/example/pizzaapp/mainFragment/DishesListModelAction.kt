@@ -7,3 +7,4 @@ sealed class DishesListModelAction : TwoWayAction()
 
 
 class OpenDescFragment(val baseDishes: BaseDishes): DishesListModelAction()
+class IDDishes(val id: UUID): DishesListModelAction()

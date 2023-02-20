@@ -50,7 +50,6 @@ class MainViewModel : ViewModel() {
         return map {
             Log.d("123","${it.group}")
             when (it.group) {
-
                 "пицца" -> Pizza(id = it.id, title = it.title, subTitle = it.subTitle,group = it.group, imageUrl = it.imageUrl, price = it.price, isAvailability = it.isAvailability)
                 "пиво" -> Beer(id = it.id, title = it.title, subTitle = it.subTitle,group = it.group, imageUrl = it.imageUrl, price = it.price, isAvailability = it.isAvailability)
                 else  -> Sushi(id = it.id, title = it.title, subTitle = it.subTitle,group = it.group, imageUrl = it.imageUrl, price = it.price, isAvailability = it.isAvailability)

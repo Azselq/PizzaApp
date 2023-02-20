@@ -14,5 +14,5 @@ fun View.setActionOnClick(action: (() -> Unit)?) {
 
 @BindingAdapter("onClick")
 fun ImageView.setImageFromUrl(url:String) {
-        //Glide.with(this).load(url).into
+        Glide.with(this).load(url).into(this)
 }
