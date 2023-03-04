@@ -1,19 +1,15 @@
 package com.example.pizzaapp.cartFragment
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pizzaapp.mainFragment.AdditionalDishes
-import com.example.pizzaapp.mainFragment.BaseDishes
 import com.example.pizzaapp.mainFragment.CartDishes
 import com.example.pizzaapp.mainFragment.DishesForCart
 import com.example.pizzaapp.room.CartModel
 import com.example.pizzaapp.room.CartPlagin
-import io.reactivex.rxjava3.disposables.Disposable
-import ir.rev.foodMaker.models.BaseFood
-import ir.rev.foodMaker.models.FoodDetails
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -21,12 +17,15 @@ class CartViewModel : ViewModel() {
     private val cartRepository = CartPlagin.getCartRepository()
     private val _cartDishesLiveData = MutableLiveData<List<DishesForCart>>()
     val cartDishesLiveData: LiveData<List<DishesForCart>> = _cartDishesLiveData
-    init{
+
+    init {
         viewModelScope.launch(Dispatchers.IO) {
             _cartDishesLiveData.postValue(cartRepository.allCart.createViewModels())
-            Log.d("123","Cart ${_cartDishesLiveData}") }
+            Log.d("123", "Cart ${_cartDishesLiveData}")
+        }
 
     }
+
     private fun List<CartModel>.createViewModels(): List<DishesForCart> {
         return map {
             Log.d("123", "kekw ${it.title}")
@@ -35,13 +34,24 @@ class CartViewModel : ViewModel() {
                 title = it.title,
                 cost = it.cost
             )
-        }
+        }.onEach {
+            it.onClick.set {
+                Log.d("123","Тут должно было быть удаление, но у меня ничего не получилось")
+            }
 
 
-    }
-    fun deleteAllFromCart1(){
-        viewModelScope.launch(Dispatchers.IO) {
-            cartRepository.deleteAllDromCart()
         }
     }
+        override fun onCleared() {
+            _cartDishesLiveData.value?.forEach { it.release() }
+            _cartDishesLiveData.value = emptyList()
+            super.onCleared()
+        }
+
+        fun deleteAllFromCart1() {
+            viewModelScope.launch(Dispatchers.IO) {
+                cartRepository.deleteAllDromCart()
+            }
+        }
+
 }

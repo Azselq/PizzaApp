@@ -77,7 +77,7 @@ class MainViewModel : ViewModel() {
         subscribeToFoodList(dishesListLiveData.value?.size ?: 0)
     }
     private fun subscribeToFoodList(position: Int) {
-        foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, position+10))
+        foodRepository.subscribeFoodList(foodFilter = FoodFilter(440, position+10))
     }
     override fun onCleared() {
         foodSubscribeDisposeble.dispose()

@@ -22,6 +22,18 @@ class AddNewItemViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             when (receivedAction) {
                 is NewItem -> {
+                    Log.d("123", "${receivedAction.group}")
+                    foodRepository.addFood(
+                        BaseFood.Food(
+                            id = UUID.randomUUID(),
+                            title = receivedAction.title,
+                            subTitle = " ",
+                            group = receivedAction.group,
+                            imageUrl = " ",
+                            price = receivedAction.cost,
+                            isAvailability = true
+                        )
+                    )
                 }
                 else -> {
 
@@ -29,5 +41,5 @@ class AddNewItemViewModel : ViewModel() {
             }
         }
     }
-    }
+}
 

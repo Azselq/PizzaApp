@@ -1,5 +1,6 @@
 package com.example.pizzaapp.room.repository
 
+import com.example.pizzaapp.mainFragment.CartDishes
 import com.example.pizzaapp.room.CartModel
 
 interface CartRepository {

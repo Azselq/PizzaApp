@@ -87,4 +87,8 @@ class DescViewModel(val id: UUID) : ViewModel() {
     fun insertInCart(cartModel: CartModel)=viewModelScope.launch (Dispatchers.IO){
         cartRepository.addToCart(cartModel)
     }
+
+    fun delete12(baseDishes: BaseDishes)=viewModelScope.launch (Dispatchers.IO){
+      // foodRepository.deleteFood()
+    }
 }

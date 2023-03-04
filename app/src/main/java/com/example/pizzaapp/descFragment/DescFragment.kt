@@ -83,6 +83,10 @@ class DescFragment : Fragment() {
                 viewModel.insertInCart(CartModel(title = it.title,cost = it.aboutFood.price))
             }
         }
+
+        binding.imDelete.setOnClickListener {
+            Log.d("123","Тут тоже должно быть было удаление, но...")
+        }
         viewModel.action.handler = { event ->
             when (event) {
                 is AddAdditionalFood -> viewModel.insertInCart(CartModel(title = event.baseDishes.title,cost = event.baseDishes.price))

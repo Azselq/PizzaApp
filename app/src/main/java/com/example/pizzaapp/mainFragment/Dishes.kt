@@ -36,6 +36,11 @@ sealed class DishesForCart(
     open val cost: Double
 ):Parcelable{
     abstract val titleText: ObservableField<String>
+    abstract val onClick: ObservableField<(() -> Unit)?>
+
+    fun release() {
+        onClick.set(null)
+    }
 }
 @Parcelize
 class Pizza(
@@ -150,9 +155,10 @@ class AdditionalDishes(
 class CartDishes(
     override val id: Int,
     override val title: String,
-    override val cost: Double
+    override val cost: Double,
 ): DishesForCart(id,title,cost){
     override val titleText: ObservableField<String> = ObservableField("$title")
+    override val onClick: ObservableField<(() -> Unit)?> = ObservableField()
     val costCart ="$cost"
     companion object : ItemChecker.ForViewModelMerge<CartDishes>() {
 
