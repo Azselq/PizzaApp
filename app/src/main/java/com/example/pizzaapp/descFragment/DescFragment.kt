@@ -61,7 +61,6 @@ class DescFragment : Fragment() {
                 ScrollListener(
                     context = context,
                     loadNextPage = {
-                        //viewModel.refreshByScroll()
                     },
                 ).apply {
                     setOnTouchListener(this)

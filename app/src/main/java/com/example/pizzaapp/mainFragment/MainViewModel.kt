@@ -34,7 +34,8 @@ class MainViewModel : ViewModel() {
             //Обработать ошибку
             //Добавить мапер, еды, поместить в лайф дату
         }
-        foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, 10))
+        //foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, 10))
+        subscribeToFoodList(0)
     }
     val action
         get() = actionWrapper.action
@@ -72,8 +73,12 @@ class MainViewModel : ViewModel() {
         action.post(OpenDescFragment(baseDishes))
     }
 
-
-
+    fun refreshByScroll() {
+        subscribeToFoodList(dishesListLiveData.value?.size ?: 0)
+    }
+    private fun subscribeToFoodList(position: Int) {
+        foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, position+10))
+    }
     override fun onCleared() {
         foodSubscribeDisposeble.dispose()
         _dishesListLiveData.value?.forEach { it.release() }

@@ -76,10 +76,6 @@ class DescViewModel(val id: UUID) : ViewModel() {
 
     private fun handleAction(receivedAction: DishesListModelAction) {
         when (receivedAction) {
-            is IDDishes -> {
-//                idDishes1 = receivedAction.id
-//                Log.d("123","idDIshes ${idDishes1}")
-            }
             else -> {
 
             }

@@ -44,7 +44,7 @@ class MainFragment : Fragment() {
                 ScrollListener(
                     context = context,
                     loadNextPage = {
-                        //viewModel.refreshByScroll()
+                        viewModel.refreshByScroll()
                     },
                 ).apply {
                     setOnTouchListener(this)
