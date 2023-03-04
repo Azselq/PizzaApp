@@ -18,6 +18,7 @@ class AddNewItemViewModel : ViewModel() {
 
     val action
         get() = actionWrapper.action
+
     private fun handleAction(receivedAction: DishesListModelAction) {
         viewModelScope.launch(Dispatchers.IO) {
             when (receivedAction) {

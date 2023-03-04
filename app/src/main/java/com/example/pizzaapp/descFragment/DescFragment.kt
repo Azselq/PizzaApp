@@ -50,9 +50,9 @@ class DescFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.additionalDishesListLiveData.observe(viewLifecycleOwner) {
-                binding.fragDescTitle.text = it.title
-                Log.d("321", "title ${it.title}")
-                binding.fragDescDesc.text = it.aboutFood.description
+            binding.fragDescTitle.text = it.title
+            Log.d("321", "title ${it.title}")
+            binding.fragDescDesc.text = it.aboutFood.description
         }
         adapter = DishesListAdapter()
         binding.rcAdditionalFood.apply {
@@ -67,29 +67,34 @@ class DescFragment : Fragment() {
                 }
             )
         }
-        viewModel.additionalFoodListLiveData.observe(viewLifecycleOwner){
+        viewModel.additionalFoodListLiveData.observe(viewLifecycleOwner) {
             adapter?.reload(it)
-            Log.d("123","Desc Fragment $it")
+            Log.d("123", "Desc Fragment $it")
         }
         Glide.with(binding.fragDescImage).load(currentItem.imageUrl).into(binding.fragDescImage)
         viewModel.action.post(IDDishes(currentItem.id))
 
-        binding.imBack.setOnClickListener{
+        binding.imBack.setOnClickListener {
             activity?.onBackPressed()
         }
 
-        binding.imAdd.setOnClickListener{
+        binding.imAdd.setOnClickListener {
             viewModel.additionalDishesListLiveData.observe(viewLifecycleOwner) {
-                viewModel.insertInCart(CartModel(title = it.title,cost = it.aboutFood.price))
+                viewModel.insertInCart(CartModel(title = it.title, cost = it.aboutFood.price))
             }
         }
 
         binding.imDelete.setOnClickListener {
-            Log.d("123","Тут тоже должно быть было удаление, но...")
+            Log.d("123", "Тут тоже должно быть было удаление, но...")
         }
         viewModel.action.handler = { event ->
             when (event) {
-                is AddAdditionalFood -> viewModel.insertInCart(CartModel(title = event.baseDishes.title,cost = event.baseDishes.price))
+                is AddAdditionalFood -> viewModel.insertInCart(
+                    CartModel(
+                        title = event.baseDishes.title,
+                        cost = event.baseDishes.price
+                    )
+                )
                 else -> {
                     /* должно быть пусто*/
                 }

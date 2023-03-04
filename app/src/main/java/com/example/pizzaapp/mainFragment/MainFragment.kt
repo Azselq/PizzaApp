@@ -27,11 +27,12 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater,container,false)
+        binding = FragmentMainBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -54,9 +55,9 @@ class MainFragment : Fragment() {
         binding.imCart.setOnClickListener {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
         }
-        viewModel.dishesListLiveData.observe(viewLifecycleOwner){
+        viewModel.dishesListLiveData.observe(viewLifecycleOwner) {
             adapter?.reload(it)
-            Log.d("123","Main Fragment $it")
+            Log.d("123", "Main Fragment $it")
         }
 
         binding.floatBTAddNewItem.setOnClickListener {
@@ -64,7 +65,11 @@ class MainFragment : Fragment() {
         }
         viewModel.action.handler = { event ->
             when (event) {
-                is OpenDescFragment -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToDescFragment(event.baseDishes))
+                is OpenDescFragment -> findNavController().navigate(
+                    MainFragmentDirections.actionMainFragmentToDescFragment(
+                        event.baseDishes
+                    )
+                )
                 else -> {
                 }
             }

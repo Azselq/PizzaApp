@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [CartModel::class],version = 2)
-abstract class CartDatabase:RoomDatabase() {
-    abstract val getCartDAO:CartDAO
+@Database(entities = [CartModel::class], version = 2)
+abstract class CartDatabase : RoomDatabase() {
+    abstract val getCartDAO: CartDAO
 
-    companion object{
-        private var database:CartDatabase?=null
+    companion object {
+        private var database: CartDatabase? = null
     }
 }

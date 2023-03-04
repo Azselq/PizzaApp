@@ -16,11 +16,11 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycleScope.launch(Dispatchers.IO){
+        lifecycleScope.launch(Dispatchers.IO) {
             FoodPlugin.initFoodDataBase(applicationContext)
             CartPlagin.initCartDatabase(applicationContext)
-            Log.d("123","on Create: ${FoodPlugin.getFoodListRepository().checkDataBaseInit()}")
-            withContext(Dispatchers.Main){
+            Log.d("123", "on Create: ${FoodPlugin.getFoodListRepository().checkDataBaseInit()}")
+            withContext(Dispatchers.Main) {
                 setContentView((R.layout.activity_main))
             }
         }

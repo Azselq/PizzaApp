@@ -6,11 +6,11 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "cart_table")
-open class CartModel (
+open class CartModel(
     @PrimaryKey(autoGenerate = true)
-    var id:Int = 0,
+    var id: Int = 0,
     @ColumnInfo
-    var title:String,
+    var title: String,
     @ColumnInfo
     var cost: Double,
 )

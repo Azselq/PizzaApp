@@ -12,7 +12,7 @@ class ScrollListener(
     context: Context,
     loadNextPage: () -> Unit,
     private val pageSize: Int = DEFAULT_PAGE_SIZE
-): RecyclerView.OnScrollListener(),
+) : RecyclerView.OnScrollListener(),
     View.OnTouchListener,
     GestureDetector.OnGestureListener {
 
@@ -24,7 +24,8 @@ class ScrollListener(
         const val DEFAULT_PAGE_SIZE = 10
     }
 
-    private var gestureDetector: GestureDetectorCompat? = GestureDetectorCompat(context, this@ScrollListener)
+    private var gestureDetector: GestureDetectorCompat? =
+        GestureDetectorCompat(context, this@ScrollListener)
 
     /**
      * Предыдущее событие скролла. Больше 0 - скролл вниз, меньше нуля - скролл вверх.
@@ -92,7 +93,8 @@ class ScrollListener(
         if (dy > 0 && layoutManager.isNeedLoadNextPage()) {
             capturedLoadNextPage()
         }
-        lastIsShown = layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1
+        lastIsShown =
+            layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1
     }
 
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
@@ -100,7 +102,8 @@ class ScrollListener(
         super.onScrollStateChanged(recyclerView, newState)
         if (newState == RecyclerView.SCROLL_STATE_SETTLING
             && lastIsShown
-            && lastVerticalScrollDelta > 0F) {
+            && lastVerticalScrollDelta > 0F
+        ) {
             capturedLoadNextPage()
         }
     }

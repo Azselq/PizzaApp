@@ -16,7 +16,8 @@ import com.example.pizzaapp.utils.ScrollListener
 
 class CartFragment : Fragment() {
     private var adapter: DishesListAdapter? = null
-    lateinit var binding:FragmentCartBinding
+    lateinit var binding: FragmentCartBinding
+
     companion object {
         fun newInstance() = CartFragment()
     }
@@ -53,7 +54,7 @@ class CartFragment : Fragment() {
             )
         }
 
-        viewModel.cartDishesLiveData.observe(viewLifecycleOwner){
+        viewModel.cartDishesLiveData.observe(viewLifecycleOwner) {
             adapter?.reload(it)
         }
 

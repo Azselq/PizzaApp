@@ -36,22 +36,23 @@ class CartViewModel : ViewModel() {
             )
         }.onEach {
             it.onClick.set {
-                Log.d("123","Тут должно было быть удаление, но у меня ничего не получилось")
+                Log.d("123", "Тут должно было быть удаление, но у меня ничего не получилось")
             }
 
 
         }
     }
-        override fun onCleared() {
-            _cartDishesLiveData.value?.forEach { it.release() }
-            _cartDishesLiveData.value = emptyList()
-            super.onCleared()
-        }
 
-        fun deleteAllFromCart1() {
-            viewModelScope.launch(Dispatchers.IO) {
-                cartRepository.deleteAllDromCart()
-            }
+    override fun onCleared() {
+        _cartDishesLiveData.value?.forEach { it.release() }
+        _cartDishesLiveData.value = emptyList()
+        super.onCleared()
+    }
+
+    fun deleteAllFromCart1() {
+        viewModelScope.launch(Dispatchers.IO) {
+            cartRepository.deleteAllDromCart()
         }
+    }
 
 }

@@ -4,7 +4,7 @@ import com.example.pizzaapp.mainFragment.CartDishes
 import com.example.pizzaapp.room.CartModel
 import com.example.pizzaapp.room.CartPlagin
 
-class CartRealization(): CartRepository {
+class CartRealization() : CartRepository {
 
     private var cartDAO = CartPlagin.database.getCartDAO
     override val allCart: List<CartModel>

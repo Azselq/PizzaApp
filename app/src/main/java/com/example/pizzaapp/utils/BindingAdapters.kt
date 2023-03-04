@@ -8,11 +8,11 @@ import com.example.pizzaapp.R
 
 @BindingAdapter("onClick")
 fun View.setActionOnClick(action: (() -> Unit)?) {
-        setOnClickListener { action?.invoke() }
+    setOnClickListener { action?.invoke() }
 }
 
 
 @BindingAdapter("onClick")
-fun ImageView.setImageFromUrl(url:String) {
-        Glide.with(this).load(url).into(this)
+fun ImageView.setImageFromUrl(url: String) {
+    Glide.with(this).load(url).into(this)
 }

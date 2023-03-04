@@ -37,8 +37,8 @@ class DescViewModel(val id: UUID) : ViewModel() {
 
 
     init {
-        foodSubscribeDisposeble = foodRepository.getFoodDetails(id).subscribe{ it, error ->
-            if (error == null){
+        foodSubscribeDisposeble = foodRepository.getFoodDetails(id).subscribe { it, error ->
+            if (error == null) {
                 _additionalDishesListLiveData.postValue(it)
                 _additionalFoodListLiveData.postValue(it.additionalFood.createViewModels())
                 Log.d("checkResult", "$it: ")
@@ -81,14 +81,16 @@ class DescViewModel(val id: UUID) : ViewModel() {
             }
         }
     }
-    private fun addAdditionalFood(baseDishes: BaseDishes){
+
+    private fun addAdditionalFood(baseDishes: BaseDishes) {
         action.post(AddAdditionalFood(baseDishes))
     }
-    fun insertInCart(cartModel: CartModel)=viewModelScope.launch (Dispatchers.IO){
+
+    fun insertInCart(cartModel: CartModel) = viewModelScope.launch(Dispatchers.IO) {
         cartRepository.addToCart(cartModel)
     }
 
-    fun delete12(baseDishes: BaseDishes)=viewModelScope.launch (Dispatchers.IO){
-      // foodRepository.deleteFood()
+    fun delete12(baseDishes: BaseDishes) = viewModelScope.launch(Dispatchers.IO) {
+        // foodRepository.deleteFood()
     }
 }

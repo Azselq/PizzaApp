@@ -9,10 +9,13 @@ import androidx.room.Query
 interface CartDAO {
     @Query("select * from cart_table")
     fun getAllCart(): List<CartModel>
+
     @Insert
     suspend fun insertInCart(cartModel: CartModel)
+
     @Delete
     suspend fun removeFromCart(cartModel: CartModel)
+
     @Query("delete from cart_table")
     suspend fun removeALlFromCart()
 

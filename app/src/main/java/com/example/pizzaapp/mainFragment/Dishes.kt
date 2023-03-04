@@ -34,7 +34,7 @@ sealed class DishesForCart(
     open val id: Int,
     open val title: String,
     open val cost: Double
-):Parcelable{
+) : Parcelable {
     abstract val titleText: ObservableField<String>
     abstract val onClick: ObservableField<(() -> Unit)?>
 
@@ -42,6 +42,7 @@ sealed class DishesForCart(
         onClick.set(null)
     }
 }
+
 @Parcelize
 class Pizza(
     override val id: UUID,
@@ -156,10 +157,11 @@ class CartDishes(
     override val id: Int,
     override val title: String,
     override val cost: Double,
-): DishesForCart(id,title,cost){
+) : DishesForCart(id, title, cost) {
     override val titleText: ObservableField<String> = ObservableField("$title")
     override val onClick: ObservableField<(() -> Unit)?> = ObservableField()
-    val costCart ="$cost"
+    val costCart = "$cost"
+
     companion object : ItemChecker.ForViewModelMerge<CartDishes>() {
 
         override fun areItemsTheSame(left: CartDishes, right: CartDishes) =

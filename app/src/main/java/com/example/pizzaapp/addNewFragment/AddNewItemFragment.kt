@@ -11,6 +11,7 @@ import com.example.pizzaapp.mainFragment.NewItem
 
 class AddNewItemFragment : Fragment() {
     lateinit var binding: FragmentAddNewItemBinding
+
     companion object {
         fun newInstance() = AddNewItemFragment()
     }
@@ -21,9 +22,10 @@ class AddNewItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAddNewItemBinding.inflate(inflater,container,false)
+        binding = FragmentAddNewItemBinding.inflate(inflater, container, false)
         return binding.root
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this).get(AddNewItemViewModel::class.java)
