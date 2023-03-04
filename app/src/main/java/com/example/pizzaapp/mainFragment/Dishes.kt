@@ -1,11 +1,11 @@
 package com.example.pizzaapp.mainFragment
 
 import android.os.Parcelable
-import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
 import com.bumptech.glide.Glide
 import com.example.pizzaapp.R
+import com.example.pizzaapp.room.CartModel
 import ir.rev.vmadapter.ItemChecker
 import java.util.*
 import kotlinx.parcelize.Parcelize
@@ -29,6 +29,14 @@ sealed class BaseDishes(
     }
 }
 
+@Parcelize
+sealed class DishesForCart(
+    open val id: Int,
+    open val title: String,
+    open val cost: Double
+):Parcelable{
+    abstract val titleText: ObservableField<String>
+}
 @Parcelize
 class Pizza(
     override val id: UUID,
@@ -127,12 +135,31 @@ class AdditionalDishes(
     val costAdditionalFood = "$price"
     val descAdditionalFood = "$subTitle"
 
-    companion object : ItemChecker.ForViewModelMerge<Pizza>() {
+    companion object : ItemChecker.ForViewModelMerge<AdditionalDishes>() {
 
-        override fun areItemsTheSame(left: Pizza, right: Pizza) =
+        override fun areItemsTheSame(left: AdditionalDishes, right: AdditionalDishes) =
             left.id == right.id
 
-        override fun merge(left: Pizza, right: Pizza) {
+        override fun merge(left: AdditionalDishes, right: AdditionalDishes) {
+            if (left === right) return
+            left.titleText.set(right.titleText.get())
+        }
+    }
+}
+
+class CartDishes(
+    override val id: Int,
+    override val title: String,
+    override val cost: Double
+): DishesForCart(id,title,cost){
+    override val titleText: ObservableField<String> = ObservableField("$title")
+    val costCart ="$cost"
+    companion object : ItemChecker.ForViewModelMerge<CartDishes>() {
+
+        override fun areItemsTheSame(left: CartDishes, right: CartDishes) =
+            left.id == right.id
+
+        override fun merge(left: CartDishes, right: CartDishes) {
             if (left === right) return
             left.titleText.set(right.titleText.get())
         }

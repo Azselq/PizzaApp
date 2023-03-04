@@ -12,14 +12,14 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pizzaapp.R
 import com.example.pizzaapp.databinding.FragmentDescBinding
-import com.example.pizzaapp.mainFragment.BaseDishes
-import com.example.pizzaapp.mainFragment.IDDishes
-import com.example.pizzaapp.mainFragment.MainFragmentDirections
-import com.example.pizzaapp.mainFragment.OpenDescFragment
+import com.example.pizzaapp.mainFragment.*
+import com.example.pizzaapp.room.CartModel
+import com.example.pizzaapp.utils.ScrollListener
 //import com.example.pizzaapp.mainFragment.OpenNextFragment
 import java.util.*
 
 class DescFragment : Fragment() {
+    private var adapter: DishesListAdapter? = null
     lateinit var binding: FragmentDescBinding
     private val args: DescFragmentArgs by navArgs()
     private val currentItem: BaseDishes
@@ -30,6 +30,13 @@ class DescFragment : Fragment() {
     }
 
     private lateinit var viewModel: DescViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, DescViewModelFactory(id = args.dishes.id)).get(
+            DescViewModel::class.java
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,29 +49,49 @@ class DescFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DescViewModel::class.java)
-       //binding.fragDescTitle.text = currentItem.title.toString()
-        //binding.fragDescDesc.text = currentItem.subTitle.toString()
         viewModel.additionalDishesListLiveData.observe(viewLifecycleOwner) {
-            it.subscribe({
                 binding.fragDescTitle.text = it.title
                 Log.d("321", "title ${it.title}")
                 binding.fragDescDesc.text = it.aboutFood.description
-            }, {
-                Log.d("123", "error")
-            })
+        }
+        adapter = DishesListAdapter()
+        binding.rcAdditionalFood.apply {
+            adapter = this@DescFragment.adapter
+            addOnScrollListener(
+                ScrollListener(
+                    context = context,
+                    loadNextPage = {
+                        //viewModel.refreshByScroll()
+                    },
+                ).apply {
+                    setOnTouchListener(this)
+                }
+            )
+        }
+        viewModel.additionalFoodListLiveData.observe(viewLifecycleOwner){
+            adapter?.reload(it)
+            Log.d("123","Desc Fragment $it")
+        }
+        Glide.with(binding.fragDescImage).load(currentItem.imageUrl).into(binding.fragDescImage)
+        viewModel.action.post(IDDishes(currentItem.id))
+
+        binding.imBack.setOnClickListener{
+            activity?.onBackPressed()
         }
 
-            Glide.with(binding.fragDescImage).load(currentItem.imageUrl).into(binding.fragDescImage)
-            viewModel.action.post(IDDishes(currentItem.id))
-
-            viewModel.action.handler = { event ->
-                when (event) {
-                    else -> {
-                        /* должно быть пусто*/
-                    }
+        binding.imAdd.setOnClickListener{
+            viewModel.additionalDishesListLiveData.observe(viewLifecycleOwner) {
+                viewModel.insertInCart(CartModel(title = it.title,cost = it.aboutFood.price))
+            }
+        }
+        viewModel.action.handler = { event ->
+            when (event) {
+                is AddAdditionalFood -> viewModel.insertInCart(CartModel(title = event.baseDishes.title,cost = event.baseDishes.price))
+                else -> {
+                    /* должно быть пусто*/
                 }
             }
         }
-
     }
+
+}

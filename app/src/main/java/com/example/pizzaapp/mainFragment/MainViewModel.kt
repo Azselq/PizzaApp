@@ -4,17 +4,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import io.reactivex.rxjava3.disposables.Disposable
 import ir.rev.foodMaker.FoodPlugin
 import ir.rev.foodMaker.models.BaseFood
 import ir.rev.foodMaker.models.FoodFilter
-import ir.rev.foodMaker.repository.FoodListRepository
 import ir.rev.twoWayActionsBus.TwoWayActionViewModelWrapper
-import kotlinx.coroutines.launch
-import java.util.*
 
 class MainViewModel : ViewModel() {
     private val _dishesListLiveData = MutableLiveData<List<BaseDishes>>()
@@ -40,7 +34,7 @@ class MainViewModel : ViewModel() {
             //Обработать ошибку
             //Добавить мапер, еды, поместить в лайф дату
         }
-        foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, 155))
+        foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, 10))
     }
     val action
         get() = actionWrapper.action
@@ -50,7 +44,9 @@ class MainViewModel : ViewModel() {
         return map {
             Log.d("123","${it.group}")
             when (it.group) {
-                "пицца" -> Pizza(id = it.id, title = it.title, subTitle = it.subTitle,group = it.group, imageUrl = it.imageUrl, price = it.price, isAvailability = it.isAvailability)
+                "пицца" -> Pizza(
+                    id = it.id, title = it.title, subTitle = it.subTitle,
+                    group = it.group, imageUrl = it.imageUrl, price = it.price, isAvailability = it.isAvailability)
                 "пиво" -> Beer(id = it.id, title = it.title, subTitle = it.subTitle,group = it.group, imageUrl = it.imageUrl, price = it.price, isAvailability = it.isAvailability)
                 else  -> Sushi(id = it.id, title = it.title, subTitle = it.subTitle,group = it.group, imageUrl = it.imageUrl, price = it.price, isAvailability = it.isAvailability)
             }

@@ -51,15 +51,21 @@ class MainFragment : Fragment() {
                 }
             )
         }
+        binding.imCart.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToCartFragment())
+        }
         viewModel.dishesListLiveData.observe(viewLifecycleOwner){
             adapter?.reload(it)
-            Log.d("123","$it")
+            Log.d("123","Main Fragment $it")
+        }
+
+        binding.floatBTAddNewItem.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToAddNewItemFragment2())
         }
         viewModel.action.handler = { event ->
             when (event) {
                 is OpenDescFragment -> findNavController().navigate(MainFragmentDirections.actionMainFragmentToDescFragment(event.baseDishes))
                 else -> {
-                    /* должно быть пусто*/
                 }
             }
         }

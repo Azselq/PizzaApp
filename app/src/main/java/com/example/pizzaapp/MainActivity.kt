@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.example.pizzaapp.databinding.ActivityMainBinding
+import com.example.pizzaapp.room.CartDatabase
+import com.example.pizzaapp.room.CartPlagin
 import ir.rev.foodMaker.FoodPlugin
 import ir.rev.twoWayActionsBus.TwoWayAction
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         lifecycleScope.launch(Dispatchers.IO){
             FoodPlugin.initFoodDataBase(applicationContext)
+            CartPlagin.initCartDatabase(applicationContext)
             Log.d("123","on Create: ${FoodPlugin.getFoodListRepository().checkDataBaseInit()}")
             withContext(Dispatchers.Main){
                 setContentView((R.layout.activity_main))

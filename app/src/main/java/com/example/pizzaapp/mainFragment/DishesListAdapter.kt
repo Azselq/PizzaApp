@@ -11,5 +11,6 @@ class DishesListAdapter:  ViewModelAdapter(Mode.VIEW_MODEL_MERGE) {
         cell(R.layout.item_pizza, itemChecker = Pizza)
         cell(R.layout.item_sushi, itemChecker = Sushi)
         cell(R.layout.item_additional_food, itemChecker = AdditionalDishes)
+        cell(R.layout.item_cart, itemChecker = CartDishes)
     }
 }

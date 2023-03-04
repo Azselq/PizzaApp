@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_mainFragment_to_descFragment"
             app:destination="@id/descFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addNewItemFragment2"
+            app:destination="@id/addNewItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/descFragment"
@@ -23,4 +29,14 @@
             android:name="dishes"
             app:argType="com.example.pizzaapp.mainFragment.BaseDishes"/>
     </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.pizzaapp.cartFragment.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/addNewItemFragment"
+        android:name="com.example.pizzaapp.addNewFragment.AddNewItemFragment"
+        android:label="fragment_add_new_item"
+        tools:layout="@layout/fragment_add_new_item" />
 </navigation>
