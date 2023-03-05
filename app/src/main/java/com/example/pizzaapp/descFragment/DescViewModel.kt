@@ -5,28 +5,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pizzaapp.databinding.FragmentDescBinding
-import com.example.pizzaapp.mainFragment.*
-import com.example.pizzaapp.room.CartDatabase
+import com.example.pizzaapp.mainFragment.AddAdditionalFood
+import com.example.pizzaapp.mainFragment.AdditionalDishes
+import com.example.pizzaapp.mainFragment.BaseDishes
+import com.example.pizzaapp.mainFragment.DishesListModelAction
+import com.example.pizzaapp.mainFragment.OpenLastFragment
 import com.example.pizzaapp.room.CartModel
-import com.example.pizzaapp.room.CartPlagin
-import com.example.pizzaapp.room.repository.CartRealization
-import com.example.pizzaapp.room.repository.CartRepository
-import io.reactivex.rxjava3.core.Single
+import com.example.pizzaapp.room.CartPlugin
 import io.reactivex.rxjava3.disposables.Disposable
 import ir.rev.foodMaker.FoodPlugin
 import ir.rev.foodMaker.models.BaseFood
 import ir.rev.foodMaker.models.FoodDetails
 import ir.rev.twoWayActionsBus.TwoWayActionViewModelWrapper
+import java.util.UUID
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.subscribe
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import java.util.*
+import kotlinx.coroutines.withContext
 
 
 class DescViewModel(val id: UUID) : ViewModel() {
     private val foodRepository = FoodPlugin.getFoodListRepository()
-    private val cartRepository = CartPlagin.getCartRepository()
+    private val cartRepository = CartPlugin.getCartRepository()
     private var foodSubscribeDisposeble = Disposable.disposed()
 
     private val _additionalDishesListLiveData = MutableLiveData<FoodDetails>()
@@ -74,6 +74,21 @@ class DescViewModel(val id: UUID) : ViewModel() {
         }
     }
 
+    fun deleteDishes() {
+        val isDelete = viewModelScope.async(Dispatchers.IO) {
+            foodRepository.deleteFood(id)
+        }
+        viewModelScope.launch {
+            if (isDelete.await()) {
+                withContext(Dispatchers.Main){
+                    action.post(OpenLastFragment)
+                }
+            } else {
+                Log.d("checkResult", "deleteDishes: is fail")
+            }
+        }
+    }
+
     private fun handleAction(receivedAction: DishesListModelAction) {
         when (receivedAction) {
             else -> {
@@ -88,9 +103,5 @@ class DescViewModel(val id: UUID) : ViewModel() {
 
     fun insertInCart(cartModel: CartModel) = viewModelScope.launch(Dispatchers.IO) {
         cartRepository.addToCart(cartModel)
-    }
-
-    fun delete12(baseDishes: BaseDishes) = viewModelScope.launch(Dispatchers.IO) {
-        // foodRepository.deleteFood()
     }
 }

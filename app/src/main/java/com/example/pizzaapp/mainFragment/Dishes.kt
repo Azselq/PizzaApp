@@ -1,15 +1,10 @@
 package com.example.pizzaapp.mainFragment
 
 import android.os.Parcelable
-import androidx.databinding.BindingAdapter
 import androidx.databinding.ObservableField
-import com.bumptech.glide.Glide
-import com.example.pizzaapp.R
-import com.example.pizzaapp.room.CartModel
 import ir.rev.vmadapter.ItemChecker
-import java.util.*
+import java.util.UUID
 import kotlinx.parcelize.Parcelize
-
 
 @Parcelize
 sealed class BaseDishes(
@@ -153,6 +148,7 @@ class AdditionalDishes(
     }
 }
 
+// почему уже используемые модели не переиспользывал?
 class CartDishes(
     override val id: Int,
     override val title: String,

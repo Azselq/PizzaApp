@@ -1,12 +1,11 @@
 package com.example.pizzaapp.room.repository
 
-import com.example.pizzaapp.mainFragment.CartDishes
 import com.example.pizzaapp.room.CartModel
-import com.example.pizzaapp.room.CartPlagin
+import com.example.pizzaapp.room.CartPlugin
 
-class CartRealization() : CartRepository {
+class CartRealization : CartRepository {
 
-    private var cartDAO = CartPlagin.database.getCartDAO
+    private var cartDAO = CartPlugin.database.getCartDAO
     override val allCart: List<CartModel>
         get() = cartDAO.getAllCart()
 

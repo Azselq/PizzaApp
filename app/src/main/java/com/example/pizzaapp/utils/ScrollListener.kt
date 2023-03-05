@@ -16,7 +16,6 @@ class ScrollListener(
     View.OnTouchListener,
     GestureDetector.OnGestureListener {
 
-
     companion object {
         /**
          * Размер страницы для пагинации по-умолчанию.

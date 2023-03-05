@@ -1,33 +1,32 @@
 package com.example.pizzaapp.descFragment
 
-import androidx.lifecycle.ViewModelProvider
+//import com.example.pizzaapp.mainFragment.OpenNextFragment
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.example.pizzaapp.R
 import com.example.pizzaapp.databinding.FragmentDescBinding
-import com.example.pizzaapp.mainFragment.*
+import com.example.pizzaapp.mainFragment.AddAdditionalFood
+import com.example.pizzaapp.mainFragment.BaseDishes
+import com.example.pizzaapp.mainFragment.DishesListAdapter
+import com.example.pizzaapp.mainFragment.IDDishes
+import com.example.pizzaapp.mainFragment.OpenLastFragment
 import com.example.pizzaapp.room.CartModel
 import com.example.pizzaapp.utils.ScrollListener
-//import com.example.pizzaapp.mainFragment.OpenNextFragment
-import java.util.*
 
 class DescFragment : Fragment() {
+
     private var adapter: DishesListAdapter? = null
-    lateinit var binding: FragmentDescBinding
+    private lateinit var binding: FragmentDescBinding
     private val args: DescFragmentArgs by navArgs()
     private val currentItem: BaseDishes
         get() = args.dishes
-
-    companion object {
-        fun newInstance() = DescFragment()
-    }
 
     private lateinit var viewModel: DescViewModel
 
@@ -41,7 +40,7 @@ class DescFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDescBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -85,6 +84,7 @@ class DescFragment : Fragment() {
         }
 
         binding.imDelete.setOnClickListener {
+            viewModel.deleteDishes()
             Log.d("123", "Тут тоже должно быть было удаление, но...")
         }
         viewModel.action.handler = { event ->
@@ -95,6 +95,7 @@ class DescFragment : Fragment() {
                         cost = event.baseDishes.price
                     )
                 )
+                is OpenLastFragment -> findNavController().popBackStack()
                 else -> {
                     /* должно быть пусто*/
                 }

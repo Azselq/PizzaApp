@@ -1,7 +1,6 @@
 package com.example.pizzaapp.cartFragment
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,19 +8,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.pizzaapp.mainFragment.CartDishes
 import com.example.pizzaapp.mainFragment.DishesForCart
 import com.example.pizzaapp.room.CartModel
-import com.example.pizzaapp.room.CartPlagin
+import com.example.pizzaapp.room.CartPlugin
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CartViewModel : ViewModel() {
-    private val cartRepository = CartPlagin.getCartRepository()
+    private val cartRepository = CartPlugin.getCartRepository()
     private val _cartDishesLiveData = MutableLiveData<List<DishesForCart>>()
     val cartDishesLiveData: LiveData<List<DishesForCart>> = _cartDishesLiveData
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             _cartDishesLiveData.postValue(cartRepository.allCart.createViewModels())
-            Log.d("123", "Cart ${_cartDishesLiveData}")
+            Log.d("123", "Cart $_cartDishesLiveData")
         }
 
     }
@@ -38,8 +37,6 @@ class CartViewModel : ViewModel() {
             it.onClick.set {
                 Log.d("123", "Тут должно было быть удаление, но у меня ничего не получилось")
             }
-
-
         }
     }
 

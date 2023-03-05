@@ -2,16 +2,18 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="viewModel"
             type="com.example.pizzaapp.mainFragment.Sushi"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:onClick="@{viewModel.onClick}"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:onClick="@{viewModel.onClick}">
 
         <ImageView
             android:id="@+id/imageSushi"
@@ -21,7 +23,8 @@
             android:layout_marginTop="22dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
+            app:setImageFromUrl="@{viewModel.imageUrl}"
+            app:srcCompat="@drawable/ic_launcher_foreground"/>
 
         <TextView
             android:id="@+id/tvSushiName"
@@ -33,7 +36,7 @@
             android:text="@{viewModel.titleText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageSushi"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tvSushiCost"
@@ -45,7 +48,7 @@
             android:text="@{viewModel.sushiCost}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageSushi"
-            app:layout_constraintTop_toBottomOf="@+id/tvSushiName" />
+            app:layout_constraintTop_toBottomOf="@+id/tvSushiName"/>
 
         <TextView
             android:id="@+id/textView4"
@@ -55,7 +58,7 @@
             android:layout_marginTop="28dp"
             android:text="@{viewModel.sushiCount}"
             app:layout_constraintStart_toEndOf="@+id/imSushiMinus"
-            app:layout_constraintTop_toBottomOf="@+id/tvSushiCost" />
+            app:layout_constraintTop_toBottomOf="@+id/tvSushiCost"/>
 
         <ImageButton
             android:id="@+id/imSushiMinus"
@@ -65,7 +68,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@+id/imageSushi"
             app:layout_constraintTop_toBottomOf="@+id/tvSushiCost"
-            app:srcCompat="@drawable/ic_baseline_indeterminate_check_box_24" />
+            app:srcCompat="@drawable/ic_baseline_indeterminate_check_box_24"/>
 
         <ImageButton
             android:id="@+id/imSushiPlus"
@@ -75,7 +78,7 @@
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/tvSushiCost"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
+            app:srcCompat="@drawable/ic_baseline_add_24"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </layout>
+</layout>

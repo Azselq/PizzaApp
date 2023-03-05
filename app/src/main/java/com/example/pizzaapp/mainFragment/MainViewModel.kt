@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.pizzaapp.utils.checkDelayIsOff
 import io.reactivex.rxjava3.disposables.Disposable
 import ir.rev.foodMaker.FoodPlugin
 import ir.rev.foodMaker.models.BaseFood
@@ -11,35 +12,36 @@ import ir.rev.foodMaker.models.FoodFilter
 import ir.rev.twoWayActionsBus.TwoWayActionViewModelWrapper
 
 class MainViewModel : ViewModel() {
+
     private val _dishesListLiveData = MutableLiveData<List<BaseDishes>>()
     val dishesListLiveData: LiveData<List<BaseDishes>> = _dishesListLiveData
+
     private val foodRepository = FoodPlugin.getFoodListRepository()
     private var foodSubscribeDisposeble = Disposable.disposed()
 
     private val actionWrapper = TwoWayActionViewModelWrapper(::handleAction)
 
+    val action
+        get() = actionWrapper.action
+
+    // что бы избежать множественого вызова функций при пагинации или скроле используетс следующая проперти
+    private var lastCallSubscribeTime = -1L
 
     init {
         foodSubscribeDisposeble = foodRepository.getFoodListObservable().subscribe {
-
             if (it.second == null) {
+                // Починил пагинацию теперь старые значения добавляются к новым
                 _dishesListLiveData.postValue(it.first.createViewModels())
+
                 Log.d("123", "liveData ${it.first}")
             } else {
                 Log.d("123", "${it.second}")
             }
-
-
             //Обработать ошибку
             //Добавить мапер, еды, поместить в лайф дату
         }
-        //foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, 10))
         subscribeToFoodList(0)
     }
-
-    val action
-        get() = actionWrapper.action
-
 
     private fun List<BaseFood.Food>.createViewModels(): List<BaseDishes> {
         return map {
@@ -83,7 +85,6 @@ class MainViewModel : ViewModel() {
 
     private fun handleAction(receivedAction: DishesListModelAction) {
         when (receivedAction) {
-            //is OpenNextFragment -> openNextFragment()
             else -> {
 
             }
@@ -96,11 +97,12 @@ class MainViewModel : ViewModel() {
     }
 
     fun refreshByScroll() {
-        subscribeToFoodList(dishesListLiveData.value?.size ?: 0)
+        trySubscribe { subscribeToFoodList(dishesListLiveData.value?.size ?: 0) }
     }
 
     private fun subscribeToFoodList(position: Int) {
-        foodRepository.subscribeFoodList(foodFilter = FoodFilter(440, position + 10))
+        // и тут пагинацию подправил, теперь запрос идет от последнего айтема и предоставляет коректный размер
+        trySubscribe { foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, (dishesListLiveData.value?.size ?: 0) + SUBSCRIBE_FOOD_COUNT)) }
     }
 
     override fun onCleared() {
@@ -108,5 +110,19 @@ class MainViewModel : ViewModel() {
         _dishesListLiveData.value?.forEach { it.release() }
         _dishesListLiveData.value = emptyList()
         super.onCleared()
+    }
+
+    /**
+     * Функция что бы избежать избыточных запросов
+     */
+    private inline fun trySubscribe(block: () -> Unit) {
+        if (lastCallSubscribeTime.checkDelayIsOff()) {
+            lastCallSubscribeTime = System.currentTimeMillis()
+            block()
+        }
+    }
+
+    companion object {
+        private const val SUBSCRIBE_FOOD_COUNT = 10
     }
 }

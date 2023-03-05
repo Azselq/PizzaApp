@@ -7,6 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface CartDAO {
+
     @Query("select * from cart_table")
     fun getAllCart(): List<CartModel>
 
@@ -18,5 +19,4 @@ interface CartDAO {
 
     @Query("delete from cart_table")
     suspend fun removeALlFromCart()
-
 }
