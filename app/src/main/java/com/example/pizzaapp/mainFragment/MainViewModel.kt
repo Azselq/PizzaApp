@@ -97,12 +97,12 @@ class MainViewModel : ViewModel() {
     }
 
     fun refreshByScroll() {
-        trySubscribe { subscribeToFoodList(dishesListLiveData.value?.size ?: 0) }
+        subscribeToFoodList(dishesListLiveData.value?.size ?: 0)
     }
 
     private fun subscribeToFoodList(position: Int) {
         // и тут пагинацию подправил, теперь запрос идет от последнего айтема и предоставляет коректный размер
-        trySubscribe { foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, (dishesListLiveData.value?.size ?: 0) + SUBSCRIBE_FOOD_COUNT)) }
+        trySubscribe { foodRepository.subscribeFoodList(foodFilter = FoodFilter(0, position + SUBSCRIBE_FOOD_COUNT)) }
     }
 
     override fun onCleared() {
