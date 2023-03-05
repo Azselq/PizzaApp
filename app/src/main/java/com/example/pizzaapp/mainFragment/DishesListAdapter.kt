@@ -1,7 +1,6 @@
 package com.example.pizzaapp.mainFragment
 
 import com.example.pizzaapp.R
-import ir.rev.foodMaker.models.BaseFood
 import ir.rev.vmadapter.ViewModelAdapter
 
 class DishesListAdapter : ViewModelAdapter(Mode.VIEW_MODEL_MERGE) {

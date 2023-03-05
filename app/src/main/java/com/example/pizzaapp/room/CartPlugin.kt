@@ -6,10 +6,10 @@ import androidx.room.Room
 import com.example.pizzaapp.room.repository.CartRealization
 import com.example.pizzaapp.room.repository.CartRepository
 
-object CartPlagin {
+object CartPlugin {
+
     private var cartRepositoryInstance: CartRepository? = null
     internal lateinit var database: CartDatabase
-
 
     fun getCartRepository(): CartRepository {
         return synchronized(this) {
