@@ -7,11 +7,9 @@ import java.util.UUID
 sealed class DishesListModelAction : TwoWayAction()
 
 class OpenDescFragment(val baseDishes: BaseDishes) : DishesListModelAction()
-object OpenLastFragment : DishesListModelAction()
+//object OpenLastFragment : DishesListModelAction()
 
 
 // TODO: Утащи в другие классы
 class IDDishes(val id: UUID) : DishesListModelAction()
-class AddAdditionalFood(val baseDishes: BaseDishes) : DishesListModelAction()
-
-class NewItem(val title: String, val cost: Double, val group: String) : DishesListModelAction()
+//class AddAdditionalFood(val baseDishes: BaseDishes) : DishesListModelAction()

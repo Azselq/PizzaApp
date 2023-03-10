@@ -3,8 +3,7 @@ package com.example.pizzaapp.addNewFragment
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pizzaapp.mainFragment.DishesListModelAction
-import com.example.pizzaapp.mainFragment.NewItem
+
 import ir.rev.foodMaker.FoodPlugin
 import ir.rev.foodMaker.models.BaseFood
 import ir.rev.twoWayActionsBus.TwoWayActionViewModelWrapper
@@ -20,7 +19,7 @@ class AddNewItemViewModel : ViewModel() {
     val action
         get() = actionWrapper.action
 
-    private fun handleAction(receivedAction: DishesListModelAction) {
+    private fun handleAction(receivedAction: AddNewItemModelAction) {
         viewModelScope.launch(Dispatchers.IO) {
             when (receivedAction) {
                 is NewItem -> {
@@ -31,7 +30,7 @@ class AddNewItemViewModel : ViewModel() {
                             title = receivedAction.title,
                             subTitle = " ",
                             group = receivedAction.group,
-                            imageUrl = " ",
+                            imageUrl = "https://handcraftguide.com/sites/default/files/styles/original___water/public/4kawaiifoodimageshandcraftguide.com__0.jpg?itok=0S1snRq6",
                             price = receivedAction.cost,
                             isAvailability = true
                         )

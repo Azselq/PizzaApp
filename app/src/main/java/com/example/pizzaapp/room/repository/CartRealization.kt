@@ -2,6 +2,7 @@ package com.example.pizzaapp.room.repository
 
 import com.example.pizzaapp.room.CartModel
 import com.example.pizzaapp.room.CartPlugin
+import java.util.*
 
 class CartRealization : CartRepository {
 
@@ -19,6 +20,15 @@ class CartRealization : CartRepository {
 
     override suspend fun deleteAllDromCart() {
         cartDAO.removeALlFromCart()
+    }
+
+    override suspend fun deleteFood(foodId: Int): Boolean {
+        return try {
+            cartDAO.removeFromCart(cartDAO.getFood(foodId))
+            true
+        }catch(e: Throwable){
+            false
+        }
     }
 
 

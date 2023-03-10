@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.pizzaapp.databinding.FragmentAddNewItemBinding
-import com.example.pizzaapp.mainFragment.NewItem
 
 class AddNewItemFragment : Fragment() {
 
@@ -34,8 +34,9 @@ class AddNewItemFragment : Fragment() {
             imButtonAdd.setOnClickListener {
                 val title = etTitle.text.toString()
                 val cost = etCost.text.toString().toDouble()
-                val group = etDesc.text.toString()
+                val group = etGroup.text.toString()
                 viewModel.action.post(NewItem(title, cost, group))
+                findNavController().popBackStack()
             }
         }
 

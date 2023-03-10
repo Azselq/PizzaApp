@@ -15,4 +15,7 @@ open class CartModel(
 
     @ColumnInfo
     var cost: Double,
+
+    @ColumnInfo
+    var imageUrl :String,
 )

@@ -10,7 +10,9 @@ import com.example.pizzaapp.mainFragment.DishesForCart
 import com.example.pizzaapp.room.CartModel
 import com.example.pizzaapp.room.CartPlugin
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class CartViewModel : ViewModel() {
     private val cartRepository = CartPlugin.getCartRepository()
@@ -31,11 +33,12 @@ class CartViewModel : ViewModel() {
             CartDishes(
                 id = it.id,
                 title = it.title,
-                cost = it.cost
+                cost = it.cost,
+                imageUrl = it.imageUrl
             )
         }.onEach {
             it.onClick.set {
-                Log.d("123", "Тут должно было быть удаление, но у меня ничего не получилось")
+                deleteCart(it.id)
             }
         }
     }
@@ -52,4 +55,10 @@ class CartViewModel : ViewModel() {
         }
     }
 
+    fun deleteCart(id: Int) {
+        val isDelete = viewModelScope.async(Dispatchers.IO) {
+            cartRepository.deleteFood(id)
+        }
+
+    }
 }

@@ -4,6 +4,8 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import ir.rev.foodMaker.models.BaseFood
+import java.util.*
 
 @Dao
 interface CartDAO {
@@ -19,4 +21,7 @@ interface CartDAO {
 
     @Query("delete from cart_table")
     suspend fun removeALlFromCart()
+
+    @Query("SELECT * FROM cart_table WHERE id = :foodId")
+    fun getFood(foodId: Int): CartModel
 }

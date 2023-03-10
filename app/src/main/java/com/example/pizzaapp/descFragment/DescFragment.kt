@@ -6,17 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pizzaapp.databinding.FragmentDescBinding
-import com.example.pizzaapp.mainFragment.AddAdditionalFood
 import com.example.pizzaapp.mainFragment.BaseDishes
 import com.example.pizzaapp.mainFragment.DishesListAdapter
 import com.example.pizzaapp.mainFragment.IDDishes
-import com.example.pizzaapp.mainFragment.OpenLastFragment
 import com.example.pizzaapp.room.CartModel
 import com.example.pizzaapp.utils.ScrollListener
 
@@ -50,7 +49,7 @@ class DescFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.additionalDishesListLiveData.observe(viewLifecycleOwner) {
             binding.fragDescTitle.text = it.title
-            Log.d("321", "title ${it.title}")
+            Log.d("321", "title ${it.id}")
             binding.fragDescDesc.text = it.aboutFood.description
         }
         adapter = DishesListAdapter()
@@ -70,16 +69,18 @@ class DescFragment : Fragment() {
             adapter?.reload(it)
             Log.d("123", "Desc Fragment $it")
         }
+        //binding.fragDescTitle.text = currentItem.title
         Glide.with(binding.fragDescImage).load(currentItem.imageUrl).into(binding.fragDescImage)
-        viewModel.action.post(IDDishes(currentItem.id))
+        //viewModel.action.post(IDDishes(currentItem.id))
 
         binding.imBack.setOnClickListener {
             activity?.onBackPressed()
         }
 
         binding.imAdd.setOnClickListener {
+            Toast.makeText(requireContext(),"Добавлено в корзину",Toast.LENGTH_LONG).show()
             viewModel.additionalDishesListLiveData.observe(viewLifecycleOwner) {
-                viewModel.insertInCart(CartModel(title = it.title, cost = it.aboutFood.price))
+                viewModel.insertInCart(CartModel(title = it.title, cost = it.aboutFood.price, imageUrl = it.imageUrl))
             }
         }
 
@@ -92,7 +93,8 @@ class DescFragment : Fragment() {
                 is AddAdditionalFood -> viewModel.insertInCart(
                     CartModel(
                         title = event.baseDishes.title,
-                        cost = event.baseDishes.price
+                        cost = event.baseDishes.price,
+                        imageUrl = event.baseDishes.imageUrl
                     )
                 )
                 is OpenLastFragment -> findNavController().popBackStack()

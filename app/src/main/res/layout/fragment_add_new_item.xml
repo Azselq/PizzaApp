@@ -37,22 +37,22 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="Название"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/etDesc"
+        android:id="@+id/etGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="Категория"
         android:inputType="textPersonName"
-        android:text="пицца"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etTitle" />
@@ -65,9 +65,9 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
+        android:hint="Стоимость"
         android:inputType="textPersonName"
-        android:text="123"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/etGroup" />
 </androidx.constraintlayout.widget.ConstraintLayout>

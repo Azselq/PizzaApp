@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pizzaapp.mainFragment.AddAdditionalFood
+
 import com.example.pizzaapp.mainFragment.AdditionalDishes
 import com.example.pizzaapp.mainFragment.BaseDishes
 import com.example.pizzaapp.mainFragment.DishesListModelAction
-import com.example.pizzaapp.mainFragment.OpenLastFragment
+
 import com.example.pizzaapp.room.CartModel
 import com.example.pizzaapp.room.CartPlugin
 import io.reactivex.rxjava3.disposables.Disposable
@@ -44,7 +44,7 @@ class DescViewModel(val id: UUID) : ViewModel() {
                 Log.d("checkResult", "$it: ")
 
             } else {
-                Log.d("checkResult", "$error: ")
+                Log.d("checkResult", " ошибка $error: ")
             }
         }
     }
@@ -89,7 +89,7 @@ class DescViewModel(val id: UUID) : ViewModel() {
         }
     }
 
-    private fun handleAction(receivedAction: DishesListModelAction) {
+    private fun handleAction(receivedAction: DescModelAction) {
         when (receivedAction) {
             else -> {
 
